@@ -1,3 +1,11 @@
 ---
 ansible_user: "centos"
 students_password: "{{ '7d3WlKQo5oIu8E0DtfLmj18nS2jOWLW4' | password_hash('sha512') }}"
+
+admin_ssh_keys:
+  - name: "nurlan.mukhanov"
+    state: "present"
+    key: "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAgzBaOwei9fnTS70tokycrXdNdSdC2mmMffzLxTIPZbU5Cvp9vJKFRMFYLV6aOMgbWKzHUfjyZgWzSoCHLN44ycx1oVVClpkOQHOuqGjtER5M9V1UCyzJYReyfIyq/zGk0ZxafhZ/xecIRP94WCd2ioXGE5FflLyuxkstQTvLSy08O5mkf/6ssZG0l9JyGz8LSWNFJ7Uxuh1HagBIWeyxfvvZaNrmYpDbpBPMX7v4PLSRMtqbRvV7Bn3SF5logHou4AatDQsRvZsQl+ZUpmkEIcFnRwtn8RHKZ2uPuqg/hCkLagXoN5K1wnd1bmL471DCkEdIbxl5lOVnRaHW8B5NMQ== nurlan.m@halykmarket.com"
+  - name: "samat.toibazarov"
+    state: "present"
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDDNZPgE6CUjNjqRWzvJruggAMm+/6XKP2TTZqad5d1D samlabs821"

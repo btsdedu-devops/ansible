@@ -1,0 +1,9 @@
+- hosts: all
+  tasks:
+    - name: "ensure ssh keys"
+      ansible.builtin.authorized_key:
+        user: "centos"
+        state: "{{ item.state }}"
+        key: "{{ item.key }}"
+      with_items:
+        - "{{ admin_ssh_keys }}"
