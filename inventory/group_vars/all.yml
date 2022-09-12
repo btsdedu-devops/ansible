@@ -1,0 +1,3 @@
+---
+ansible_user: "centos"
+students_password: "{{ '7d3WlKQo5oIu8E0DtfLmj18nS2jOWLW4' | password_hash('sha512') }}"

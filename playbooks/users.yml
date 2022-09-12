@@ -1,0 +1,26 @@
+---
+ - hosts: all
+   tasks:
+    - name: "Add student group"
+      ansible.builtin.group:
+        name: "students"
+        state: present
+    - name: "Add student user"
+      ansible.builtin.user:
+        name: "student"
+        shell: /bin/bash
+        groups: students
+        update_password: always
+        password: "{{ students_password }}"
+    - name: "Enable SSH password authentication"
+      ansible.builtin.lineinfile:
+        path: "/etc/ssh/sshd_config"
+        regexp: '^PasswordAuthentication no'
+        line: 'PasswordAuthentication yes'
+        state: "present"
+      register: "ssh_config"
+    - name: "restart sshd"
+      ansible.builtin.systemd:
+        name: "sshd"
+        state: "restarted"
+      when: "ssh_config.changed"
