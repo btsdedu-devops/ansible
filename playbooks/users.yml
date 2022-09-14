@@ -8,8 +8,11 @@
     - name: "Add student user"
       ansible.builtin.user:
         name: "student"
-        shell: /bin/bash
-        groups: students
+        append: true
+        shell: "/bin/bash"
+        groups: 
+          - "students"
+          - "wheel"
         update_password: always
         password: "{{ students_password }}"
     - name: "Enable SSH password authentication"

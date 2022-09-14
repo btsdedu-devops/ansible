@@ -1,6 +1,6 @@
 ---
 ansible_user: "centos"
-students_password: "{{ '7d3WlKQo5oIu8E0DtfLmj18nS2jOWLW4' | password_hash('sha512') }}"
+students_password: "{{ 'B02se1nQnx3qaEQCrh8FzqNXxf80tM7kWFm' | password_hash('sha512') }}"
 
 admin_ssh_keys:
   - name: "nurlan.mukhanov"
@@ -9,3 +9,6 @@ admin_ssh_keys:
   - name: "samat.toibazarov"
     state: "present"
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDDNZPgE6CUjNjqRWzvJruggAMm+/6XKP2TTZqad5d1D samlabs821"
+  - name: "daulet"
+    state: "present"
+    key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3fPUJsUL6gNIUuVpoNukcpSqfePimmdba0psvSNvVZVTR4CBB1tO70BtL9m9WBQ2hQtzbgr6UyN3EZq4ZCSRpRtOnL7rVqMr0ETb5G3GaRCB0rPj+D+Iwj4aXm3rJEib9TPC2ao0veF7u8ZqqGsiJHKznclW4o4Uyi6Sq0N2CX4wk95rwiVVOr6j1P+K5Uuz7vawGekBbpB5Apj/fRWtBc3vFgV7iMWL2UJva2GMlniCAI1do7+SI57tc5pzajj1YqHh7a08Aj1liWaDXPX1cHtnq5BORgZttmi+DxcfieG+badnBYzKn9zK9jx65rhvPudn2jbdTzlihXLgNR5P/ root@srvalm"
