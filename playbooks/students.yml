@@ -1,5 +1,5 @@
 ---
- - hosts: all
+ - hosts: students
    tasks:
     - name: "Add student group"
       ansible.builtin.group:
