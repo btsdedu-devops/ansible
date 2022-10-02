@@ -13,17 +13,19 @@
         groups: 
           - "students"
           - "wheel"
-        update_password: always
-        password: "{{ students_password }}"
-    - name: "Enable SSH password authentication"
+    - name: "Disable ask passwd"
       ansible.builtin.lineinfile:
-        path: "/etc/ssh/sshd_config"
-        regexp: '^PasswordAuthentication no'
-        line: 'PasswordAuthentication yes'
+        path: "/etc/sudoers"
+        regexp: '^%students'
+        line: '%students ALL=(ALL)  NOPASSWD: ALL'
         state: "present"
-      register: "ssh_config"
-    - name: "restart sshd"
-      ansible.builtin.systemd:
-        name: "sshd"
-        state: "restarted"
-      when: "ssh_config.changed"
+    - name: "ensure ssh keys"
+      ansible.builtin.authorized_key:
+        user: "student"
+        state: "{{ item.state }}"
+        key: "{{ item.key }}"
+      when: "student_vm == item.name"
+      with_items:
+        - "{{ students_ssh_keys }}"
+      tags:
+        - "ssh_key"

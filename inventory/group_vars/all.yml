@@ -1,5 +1,5 @@
 ---
-ansible_user: "centos"
+ansible_user: "almalinux"
 students_password: "{{ 'B02se1nQnx3qaEQCrh8FzqNXxf80tM7kWFm' | password_hash('sha512') }}"
 
 admin_ssh_keys:
