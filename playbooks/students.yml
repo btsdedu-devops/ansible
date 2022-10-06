@@ -22,7 +22,7 @@
     - name: "ensure ssh keys"
       ansible.builtin.authorized_key:
         user: "student"
-        state: "{{ item.state }}"
+        state: "present"
         key: "{{ item.key }}"
       when: "student_vm == item.name"
       with_items:
