@@ -1,0 +1,23 @@
+---
+ - hosts: backup
+   tasks:
+    - name: "Add student group"
+      ansible.builtin.group:
+        name: "students"
+        state: present
+    - name: "Add student user"
+      ansible.builtin.user:
+        name: "student"
+        append: true
+        shell: "/bin/bash"
+        groups: 
+          - "students"
+    - name: "ensure ssh keys"
+      ansible.builtin.authorized_key:
+        user: "student"
+        state: "present"
+        key: "{{ item.key }}"
+      with_items:
+        - "{{ students_ssh_keys }}"
+      tags:
+        - "ssh_key"
