@@ -1,0 +1,9 @@
+- hosts: lectors
+  tasks:
+    - name: "ensure ssh keys"
+      ansible.builtin.authorized_key:
+        user: "{{ ansible_user }}"
+        state: "{{ item.state }}"
+        key: "{{ item.key }}"
+      with_items:
+        - "{{ admin_ssh_keys }}"

@@ -1,0 +1,6 @@
+---
+all:
+  children:
+    students:
+    lectors:
+    backup:

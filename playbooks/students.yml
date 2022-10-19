@@ -1,0 +1,31 @@
+---
+ - hosts: students
+   tasks:
+    - name: "Add student group"
+      ansible.builtin.group:
+        name: "students"
+        state: present
+    - name: "Add student user"
+      ansible.builtin.user:
+        name: "student"
+        append: true
+        shell: "/bin/bash"
+        groups: 
+          - "students"
+          - "wheel"
+    - name: "Disable ask passwd"
+      ansible.builtin.lineinfile:
+        path: "/etc/sudoers"
+        regexp: '^%students'
+        line: '%students ALL=(ALL)  NOPASSWD: ALL'
+        state: "present"
+    - name: "ensure ssh keys"
+      ansible.builtin.authorized_key:
+        user: "student"
+        state: "present"
+        key: "{{ item.key }}"
+      when: "student_vm == item.name"
+      with_items:
+        - "{{ students_ssh_keys }}"
+      tags:
+        - "ssh_key"
