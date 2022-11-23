@@ -1,0 +1,7 @@
+---
+kubernetes:
+  hosts:
+    kube1.samlabs.pw:
+    kube2.samlabs.pw:
+    kube3.samlabs.pw:
+    kube4.samlabs.pw:

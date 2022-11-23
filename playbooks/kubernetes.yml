@@ -1,0 +1,38 @@
+- hosts: kubernetes
+  handlers:
+    - name: update grub
+      ansible.builtin.shell: "grub2-mkconfig"
+  tasks:
+    - name: "ensure ssh keys"
+      ansible.builtin.authorized_key:
+        user: "{{ ansible_user }}"
+        state: "{{ item.state }}"
+        key: "{{ item.key }}"
+      with_items:
+        - "{{ admin_ssh_keys }}"
+    - name: "install packages"
+      ansible.builtin.yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - "python36"
+        - "telnet"
+        - "vim"
+        - "dstat"
+    - name: check if splash is configured in the boot command
+      ansible.builtin.lineinfile:
+        backup: true
+        path: /etc/default/grub
+        regexp: '^GRUB_CMDLINE_LINUX=".*unified_cgroup_hierarchy=1'
+        state: absent
+      check_mode: true
+      register: grub_cmdline_check
+      changed_when: false
+    - name: insert splash if missing
+      ansible.builtin.lineinfile:
+        backrefs: true
+        path: /etc/default/grub
+        regexp: "^(GRUB_CMDLINE_LINUX=\".*)\"$"
+        line: '\1 systemd.unified_cgroup_hierarchy=1"'
+      when: grub_cmdline_check.found == 0
+      notify: update grub
